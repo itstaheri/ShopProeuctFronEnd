@@ -1,0 +1,9 @@
+{
+    "ApiUrls" : 
+       {
+        "OtpRequest" : "",
+        "CheckOtpIdIsValid" : ""
+       }
+
+    
+}

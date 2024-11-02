@@ -33,23 +33,24 @@ import { Common } from '../app.component';
     }
     
     public  CallPostApiWithCaptcha(customUrl: string, apiBody: any) {
+      debugger;
         let currentUser:any= JSON.parse(localStorage.getItem('currentUser') || '{}');
         if (currentUser == null || currentUser.TokenID == null)
         this.router.navigate(['/login']);
 
-      let userCaptcha:any = JSON.parse(localStorage.getItem('userCaptcha') || '{}');
+      // let userCaptcha:any = JSON.parse(localStorage.getItem('userCaptcha') || '{}');
       
-      if (!userCaptcha || userCaptcha.code.length == 0){
-        throw new Error("لطفا کد امنیتی  را وارد نمایید");
-      }
+      // if (!userCaptcha || userCaptcha.code.length == 0){
+      //   throw new Error("لطفا کد امنیتی  را وارد نمایید");
+      // }
       
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'Bearer '+ currentUser.TokenID,
-          'Captcha': JSON.stringify({ 'id': userCaptcha.id, 'code': userCaptcha.code })
         })
       };
+      
 
       return this.http.post<any>(Common.rootBaseUrl + customUrl, apiBody, httpOptions);
     }

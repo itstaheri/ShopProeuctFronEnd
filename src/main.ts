@@ -5,4 +5,15 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
 
+
+
+
+export class Main{
+
+  public menu : any
+  public basket : any
+
+
   
+
+}                  

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Common, notificationType } from '../../app.component';
 import { ApiService } from '../../Services/api.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-auth',
@@ -15,12 +16,21 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AuthComponent implements OnInit {
   
-  
+  //service
   private _callApi : ApiService;
   private _formBuilder : FormBuilder;
-  constructor(private callApi : ApiService,private formBuilder : FormBuilder){
+  public label = "";
+  //flags
+ private enableOtpPage : boolean = false
+
+  //url
+  private readonly otpRequestUrl : string;
+  
+  constructor(private callApi : ApiService,private formBuilder : FormBuilder,private route:Router,){
     this._callApi = callApi;
     this._formBuilder = formBuilder;
+    this.otpRequestUrl = Common.ReadConfig("OtpRequest")
+    
   }
   public form!: FormGroup;
 
@@ -31,13 +41,26 @@ export class AuthComponent implements OnInit {
     })
   }
   public otpRequest(){
-    console.log("hhiiihhihihi")
     debugger;
     var request = {
       Refrence : this.form.value.Refrence,
       Channel : 1
 
     }
+    
+  this.callApi.CallPostApiWithCaptcha("/v1/otp/OtpRequest",request).subscribe(respons=>{
+    
+    debugger;
+    if(respons["result"].message == "ActiveOtpExist")
+      this.label = "یکبار رمز ارسال شده است."
+    else if(respons["result"].message == "OperationSuccess"){
+      this.route.navigate(['/','sendcode']);
+
+  
+    }
+  })
+
+    
   }
   
 

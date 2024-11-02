@@ -1,0 +1,4 @@
+{
+        "OtpRequest" : "/v1/otp/OtpRequest",
+        "LoginOrSignUp" : "/v1/auth/LoginOrSignupWithPhoneAsync"
+}

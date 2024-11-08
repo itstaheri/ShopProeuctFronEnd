@@ -5,11 +5,20 @@
                 <div class="auth-items">
                     <div class="row justify-content-center">
                         <div class="col-lg-4">
-                            
+                            <form [formGroup]="form" (ngSubmit)="checkOtp()">
+
                             <div class="auth-form shadow-xl rounded-3 border-ui  mt-3 bg-white">
-                                <div class="alert text-center alert-success">
-                                    یک کد برای شما پیامک شد لطفا آن را وارد کنید
+                                <div *ngIf="status == 1;else problem">
+                                    <div class="alert text-center alert-success" >
+                                        {{message}}
+                                     </div>
                                 </div>
+                                
+                               <ng-template  #problem> 
+                                <div class="alert text-center alert-warning" >
+                                    {{message}}
+                                 </div>
+                               </ng-template>
 
 
                                 <div class="otp">
@@ -17,9 +26,9 @@
 
                                 </div>
                                <!--counter-->
-                                <button id="submit" class="btn my-3 w-100 main-color-two-bg py-2">ورود</button>
-                               
+                                <button id="submit" type="submit" class="btn my-3 w-100 main-color-two-bg py-2">ورود</button>
                             </div>
+                        </form>
                         </div>
                     </div>
                 </div>

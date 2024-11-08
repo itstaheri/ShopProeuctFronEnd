@@ -4,11 +4,12 @@ import { Common, notificationType } from '../../app.component';
 import { ApiService } from '../../Services/api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { OtpHeaderModel } from '../../Services/models/otp/otpHeaderModel';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-send-code',
   standalone: true,
-  imports : [ReactiveFormsModule,RouterModule,HttpClientModule],
+  imports : [ReactiveFormsModule,RouterModule,HttpClientModule,CommonModule ],
   templateUrl: './send-code.component.html',
   styleUrl: './send-code.component.scss',
   providers : [ApiService]
@@ -21,29 +22,36 @@ export class SendCodeComponent implements OnInit {
    */
   private readonly checkOtpIdValidUrl : string;
   private readonly loginOrSignUpUrl : string;
-  private timeout? : number
-  private form! : FormGroup
+  public  message  : String;
+  public status : number =1;
+  private timeout? : number 
+  public form! : FormGroup
+  private Id? : string;
   
   constructor(private activatedRoute : ActivatedRoute,private route:Router,private Apiservice:ApiService,private fb:FormBuilder) {
     this.checkOtpIdValidUrl = Common.ReadConfig("CheckOtpIdIsValid")
     this.loginOrSignUpUrl = Common.ReadConfig("CheckOtp")
 
-
+                                   
+                                   
+    this.message = " یک کد برای شما پیامک شد لطفا آن را وارد کنید"
+    this.status = 1;
       
   }
   ngOnInit(): void {
 
+    debugger
     this.form = this.fb.group({
       Id:['',Validators.required],
       Code : ['',Validators.required]
     })
-    //  var Id =  this.activatedRoute.snapshot.params["id"]
+   this.Id =  this.activatedRoute.snapshot.params["Id"]
 
-    // if(Id  == undefined){
+    if(this.Id  == undefined){
 
-    //   debugger
-    //   this.route.navigate(["/",'auth'])
-    // }
+      debugger
+      this.route.navigate(["/",'auth'])
+    }
 
     // if(this.checkIdValid(Id)){
     //   Common.ShowNotify(notificationType.error,"شناسه یکبار رمز اشتباه می باشد.")
@@ -57,34 +65,60 @@ export class SendCodeComponent implements OnInit {
     
   }
 
-  checkIdValid(Id : string) : boolean{
+  // checkIdValid(Id : string) : boolean{
 
 
-    var requestBody = {
-      Id : Id
-    }
+  //   var requestBody = {
+  //     Id : Id
+  //   }
 
-    var result = false;
+  //   var result = false;
 
-    this.Apiservice.CallPostApiWithoutToken(this.checkOtpIdValidUrl,requestBody).subscribe(response=>{
+  //   this.Apiservice.CallPostApiWithoutToken(this.checkOtpIdValidUrl,requestBody).subscribe(response=>{
       
-      this.timeout = response[0].Result.Timeout
-      result = response[0].Result;
+  //     this.timeout = response[0].Result.Timeout
+  //     result = response[0].Result;
      
-    })
+  //   })
 
-    return result;
+  //   return result;
 
 
-  }
+  // }
 
   checkOtp(){
-    var requestBody = {
-      Id : this.form.get("Id")?.value,
-      Code : this.form.get("Code")?.value
-    }
+  debugger;
+    var otp =new  OtpHeaderModel();
 
-    this.Apiservice.CallPostApi(this.loginOrSignUpUrl,requestBody).subscribe(response=>{
+    var request = {
+      PhoneNumber :  this.Id
+    }
+    otp.Refrence = this.Id;
+    otp.Code = this.form.get("Code")?.value;
+
+    this.Apiservice.CallPostApiWithoutToken("/v1/Auth/LoginOrSignupWithPhone",request,otp ).subscribe(response=>{
+
+      debugger
+      console.log(response)
+      if(response["message"] == "OperationSuccess"){
+        this.status = 1;
+        this.message = "ورود موفق"
+
+
+      }
+     else if(response["message"]== "OTPWrong") 
+      {
+        this.status = 2;
+        this.message = "یکبار رمز وارد شده اشتباه است."
+
+      }else if(response["message"] == "OTPNotActive"){
+         this.status = 2;
+        this.message = "یکبار رمز معتبر نیست"
+      }
+      else if(response["message"] == "OTPExpierd"){
+        this.status = 2;
+       this.message = "یکبار رمز غیر فعال شده است لطفا دوباره درخواست بدهید"
+     }
 
       
 

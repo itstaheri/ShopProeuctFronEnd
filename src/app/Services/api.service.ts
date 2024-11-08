@@ -3,6 +3,7 @@ import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Common } from '../app.component';
+import { OtpHeaderModel } from './models/otp/otpHeaderModel';
 @Injectable({
     providedIn: 'root',
     
@@ -17,6 +18,11 @@ import { Common } from '../app.component';
 
     constructor(private http: HttpClient,private router: Router) {
     }
+
+
+    
+
+    
     public  CallPostApi(customUrl: string, apiBody: any) {
       let currentUser:any= JSON.parse(localStorage.getItem('currentUser') || '{}');
       if (currentUser == null || currentUser.TokenID == null)
@@ -122,13 +128,33 @@ import { Common } from '../app.component';
 
     }
 
-    public  CallPostApiWithoutToken(customUrl: string, apiBody?: any) {
-      const httpOptions = {
+    public  CallPostApiWithoutToken(customUrl: string, apiBody?: any,otp? : OtpHeaderModel) {
+      
+      
+       var httpOptions = null;
+
+debugger
+      if(otp!=null || otp!=undefined)
+      {
+        httpOptions =
+{
         headers: new HttpHeaders({
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "OTP":JSON.stringify(otp)
         })
       };
-      return this.http.post<any[]>(Common.rootBaseUrl + customUrl, apiBody, httpOptions);
+    }
+      else{
+        httpOptions =
+{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        })
+      }
+        
+      }
+
+      return this.http.post<any>(Common.rootBaseUrl + customUrl, apiBody, httpOptions);
 
     }
 

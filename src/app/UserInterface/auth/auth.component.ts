@@ -50,11 +50,12 @@ export class AuthComponent implements OnInit {
     
   this.callApi.CallPostApiWithCaptcha("/v1/otp/OtpRequest",request).subscribe(respons=>{
     
+    console.log(respons)
     debugger;
     if(respons["result"].message == "ActiveOtpExist")
       this.label = "یکبار رمز ارسال شده است."
     else if(respons["result"].message == "OperationSuccess"){
-      this.route.navigate(['/','sendcode']);
+      this.route.navigate(['/','sendcode',{Id : request.Refrence}]);
 
   
     }

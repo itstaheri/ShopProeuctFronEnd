@@ -1,0 +1,382 @@
+<main>
+    <div class="container-fluid">
+        <div class="content pt-md-3 pt-0">
+            <div class="row">
+                <div class="col-xl-3">
+                    <!--   start dashboard menu mobile  -->
+                    <div class="custom-filter d-xl-none d-block">
+                        <button class="btn btn-filter-float border-0 btn-dark shadow-box px-4 rounded-3 position-fixed"
+                                style="z-index: 999;bottom:75px;" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <i class="bi bi-funnel font-20 fw-bold text-white"></i>
+                            <span class="d-block font-14 text-white">منو</span>
+                        </button>
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+                             aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel1">منو</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="panel-side position-sticky top-0">
+                                    <div class="content-box bs-bg-gray-300 pb-0">
+                                        <div class="container-fluid">
+                                            <div class="panel-box bg-white p-3 rounded-4 shadow-md ">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="assets/image/user.png"
+                                                         class="img-fluid img-profile-panel rounded-circle me-3 shadow-md" alt="">
+                                                    <div class="d-grid gap-2">
+                                                        <h6 class="h6 main-color-one-color">امیر رضایی</h6>
+                                                        <h6 class="font-14 text-muted">093312345678 <a href=""
+                                                                                                       class="ms-2 text-muted"><i
+                                                                class="bi bi-pencil-square"></i> </a></h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="profile-box">
+                                                <nav class="navbar profile-box-nav">
+                                                    <ul class="navbar-nav flex-column">
+                                                        <li class="nav-item active"><a  (click)="GetProfileInfo()" class="nav-link" >
+                                                            <i class="bi bi-house-door me-3"></i>پروفایل</a>
+                                                        </li>
+                                                        <li  class="nav-item"><a class="nav-link" (click)="GetOrders()">
+                                                            <i class="bi bi-cart-check me-3"></i>سفارش های من <span
+                                                                class="badge text-dark ms-2 rounded-pill main-color-one-bg">5</span></a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-pin-map me-3"></i>آدرس های من</a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-bell me-3"></i>پیام ها و اطلاعیه ها</a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-chat-dots me-3"></i>نظرات من</a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-question-circle me-3"></i>درخواست پشتیبانی</a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-heart me-3"></i>محصولات مورد علاقه</a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-gift me-3"></i>کد های تخفیف من</a>
+                                                        </li>
+                                                        <li class="nav-item"><a href="" class="nav-link">
+                                                            <i class="bi bi-arrow-right-square me-3"></i>خروج از حساب کاربری</a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--   end dashboard menu mobile   -->
+                    <div class="panel-side d-xl-block d-none position-sticky top-0">
+                        <div class="content-box bs-bg-gray-300 pb-0">
+                            <div class="container-fluid">
+                                <div class="panel-box bg-white p-3 rounded-4 shadow-md ">
+                                    <div class="d-flex align-items-center">
+                                        <img src="assets/image/user.png"
+                                             class="img-fluid img-profile-panel rounded-circle me-3 shadow-md" alt="">
+                                        <div class="d-grid gap-2">
+                                            <h6 class="h6 main-color-one-color">امیر رضایی</h6>
+                                            <h6 class="font-14 text-muted">093312345678 <a href=""
+                                                                                           class="ms-2 text-muted"><i
+                                                    class="bi bi-pencil-square"></i> </a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-box">
+                                    <nav class="navbar profile-box-nav">
+                                        <ul class="navbar-nav flex-column">
+                                            <li [ngClass]="Section == 1 ? 'nav-item active' : 'nav-item'"  ><a  (click)="GetProfileInfo()" class="nav-link">
+                                                <i class="bi bi-house-door me-3"></i>پروفایل</a>
+                                            </li>
+                                            <li [ngClass]="Section == 2 ? 'nav-item active' : 'nav-item'" ><a (click)="GetOrders()"  class="nav-link">
+                                                <i class="bi bi-cart-check me-3"></i>سفارش های من <span
+                                                    class="badge text-dark ms-2 rounded-pill main-color-one-bg">5</span></a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-pin-map me-3"></i>آدرس های من</a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-bell me-3"></i>پیام ها و اطلاعیه ها</a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-chat-dots me-3"></i>نظرات من</a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-question-circle me-3"></i>درخواست پشتیبانی</a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-heart me-3"></i>محصولات مورد علاقه</a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-gift me-3"></i>کد های تخفیف من</a>
+                                            </li>
+                                            <li class="nav-item"><a href="" class="nav-link">
+                                                <i class="bi bi-arrow-right-square me-3"></i>خروج از حساب کاربری</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9">
+                    <div class="content-box px-2 slider-parent" *ngIf="Section == 1">
+                        <div class="container-fluid">
+                            <div class="panel-mini-card">
+                                <div class="row gy-4">
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="panel-two-full-info-item w-100">
+                                            <div class="content d-flex align-items-center flex-column flex-md-row">
+                                                <div class="icon-card me-3">
+                                                    <i class="bi bi-credit-card"></i>
+                                                </div>
+                                                <div class="detail text-center text-md-start">
+                                                    <div class="title mb-2 text-muted"> در حال انجام</div>
+                                                    <div class="value fw-bold h5"> 0 سفارش</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="panel-two-full-info-item w-100">
+                                            <div class="content d-flex align-items-center flex-column flex-md-row">
+                                                <div class="icon-card me-3">
+                                                    <i class="bi bi-truck"></i>
+                                                </div>
+                                                <div class="detail text-center text-md-start">
+                                                    <div class="title mb-2 text-muted"> تکمیل شده</div>
+                                                    <div class="value fw-bold h5"> 17 سفارش</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="panel-two-full-info-item w-100">
+                                            <div class="content d-flex align-items-center flex-column flex-md-row">
+                                                <div class="icon-card me-3">
+                                                    <i class="bi bi-box-seam"></i>
+                                                </div>
+                                                <div class="detail text-center text-md-start">
+                                                    <div class="title mb-2 text-muted"> مرجوع شده</div>
+                                                    <div class="value fw-bold h5"> 0 سفارش</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-md-6">
+                                        <div class="panel-two-full-info-item w-100">
+                                            <div class="content d-flex align-items-center flex-column flex-md-row">
+                                                <div class="icon-card me-3">
+                                                    <i class="bi bi-cart-x"></i>
+                                                </div>
+                                                <div class="detail text-center text-md-start">
+                                                    <div class="title mb-2 text-muted"> لغو شده</div>
+                                                    <div class="value fw-bold h5"> 0 سفارش</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="user-info-tbl" *ngIf="Section == 1">
+                        <div class="slider-title mb-5">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="slider-title-desc">
+                                        <div class="slider-title-title">
+                                            <h2 class="h4">پروفایل <span
+                                                    class="main-color-one-color fw-bold">کاربری</span></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="slider-title-link">
+                                        <a href="" class="main-color-one-color font-16"> ویرایش <i
+                                                class="bi bi-caret-left-fill"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-custom slider-parent p-0">
+                            <div class="table-responsive-lg">
+                                <table class="table shadow-none table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h6 class="fw-bold font-18  text-muted ">نام و نام خانوادگی:</h6>
+                                            <p class=" mt-2 font-16">امیر رضایی</p>
+                                        </td>
+                                        <td colspan="2">
+                                            <h6 class="text-muted fw-bold font-18 ">شماره تلفن:</h6>
+                                            <p class=" mt-2 font-16">09165555555</p>
+                                        </td>
+                                        <td colspan="2">
+                                            <h6 class="fw-bold font-18 text-muted">پست الکترونیک:</h6>
+                                            <p class=" mt-2 font-16">Amirgmail.com</p>
+                                        </td>
+                                        <td colspan="2" class="no-border">
+                                            <h6 class="fw-bold font-18 text-muted">کد ملی:</h6>
+                                            <p class=" mt-2 font-16">61400011133322</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8" class="no-border">
+                                            <h6 class="fw-bold font-18  text-muted">آدرس: </h6>
+                                            <p class=" mt-2 font-16">خرم آباد شهریار انتهای کوچه</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="order-info"  *ngIf="Section == 2">
+                        <div class="slider-title mb-5">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="slider-title-desc">
+                                        <div class="slider-title-title">
+                                            <h2 class="h4">آخرین <span
+                                                    class="main-color-one-color fw-bold">سفارشات</span></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="slider-title-link">
+                                        <a href="" class="main-color-one-color font-16"> مشاهده همه <i
+                                                class="bi bi-caret-left-fill"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-custom slider-parent p-0">
+                            <div class="table-responsive">
+                                <table class="table shadow-none table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="avatar-group d-flex align-items-center justify-content-center assigned-avatar">
+                                                <div class="avatar avatar-md" data-bs-toggle="tooltip"
+                                                     data-bs-placement="top"
+                                                     aria-label="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW"
+                                                     data-bs-original-title="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW">
+                                                    <a href="">
+                                                        <img src="assets/image/product/product-no-bg/product-image-3.png"
+                                                             alt="Avatar"
+                                                             class="rounded-circle  pull-up">
+                                                    </a>
+                                                </div>
+                                                <div class="avatar avatar-md" data-bs-toggle="tooltip"
+                                                     data-bs-placement="top"
+                                                     aria-label="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW"
+                                                     data-bs-original-title="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW">
+                                                    <a href="">
+                                                        <img src="assets/image/product/product-no-bg/product-image-4.png"
+                                                             alt="Avatar"
+                                                             class="rounded-circle  pull-up">
+                                                    </a>
+                                                </div>
+                                                <div class="avatar avatar-md" data-bs-toggle="tooltip"
+                                                     data-bs-placement="top"
+                                                     aria-label="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW"
+                                                     data-bs-original-title="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW">
+                                                    <a href="">
+                                                        <img src="assets/image/product/product-no-bg/product-image-5.png"
+                                                             alt="Avatar"
+                                                             class="rounded-circle  pull-up">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <h5 class="text-overflow-1 mt-2 h6">
+                                                سفارش شماره 427 خرم آباد
+                                            </h5>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0 text-muted font-16">کد سفارش</p>
+                                                <p class="mb-0 ms-2 fw-bold">1456321</p>
+                                            </div>
+                                            <p class="mb-0 text-muted mt-2 font-16">4 تیرماه 1403</p>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0 text-muted font-16">مبلغ</p>
+                                                <p class="mb-0 ms-2 fw-bold">1,700,000 تومان</p>
+                                            </div>
+                                            <p class="mb-0 fw-bold mt-2 font-16"><i
+                                                    class="bi bi-check-circle-fill me-1 main-color-two-color"></i> تحویل
+                                                داده شده</p>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="text-center">
+                                                <a href=""
+                                                   class="btn main-color-two-bg shadow-none">مشاهده</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="avatar-group d-flex align-items-center justify-content-center assigned-avatar">
+                                                <div class="avatar avatar-md" data-bs-toggle="tooltip"
+                                                     data-bs-placement="top"
+                                                     aria-label="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW"
+                                                     data-bs-original-title="تی شرت لانگ ورزشی مردانه نوزده نودیک مدل TS1967 WW">
+                                                    <a href="">
+                                                        <img src="assets/image/product/product-no-bg/product-image-3.png"
+                                                             alt="Avatar"
+                                                             class="rounded-circle  pull-up">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <h5 class="text-overflow-1 mt-2 h6">
+                                                سفارش شماره 582 خرم آباد
+                                            </h5>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0 text-muted font-16">کد سفارش</p>
+                                                <p class="mb-0 ms-2 fw-bold">1456321</p>
+                                            </div>
+                                            <p class="mb-0 text-muted mt-2 font-16">4 تیرماه 1403</p>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0 text-muted font-16">مبلغ</p>
+                                                <p class="mb-0 ms-2 fw-bold">1,700,000 تومان</p>
+                                            </div>
+                                            <p class="mb-0 fw-bold mt-2 font-16"><i
+                                                    class="bi bi-check-circle-fill me-1 main-color-two-color"></i> تحویل
+                                                داده شده</p>
+                                        </td>
+                                        <td colspan="2" class="align-middle">
+                                            <div class="text-center">
+                                                <a href=""
+                                                   class="btn main-color-two-bg shadow-none">مشاهده</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

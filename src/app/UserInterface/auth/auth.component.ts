@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { routes } from '../../app.routes';
+import { ApiUrls } from '../../apiurls';
 
 @Component({
   selector: 'app-auth',
@@ -48,7 +49,7 @@ export class AuthComponent implements OnInit {
 
     }
     
-  this.callApi.CallPostApiWithCaptcha("/v1/otp/OtpRequest",request).subscribe(respons=>{
+  this.callApi.CallPostApiWithCaptcha(ApiUrls.OtpRequest,request).subscribe(respons=>{
     
     console.log(respons)
     debugger;

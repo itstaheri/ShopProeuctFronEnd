@@ -103,6 +103,7 @@ export class SendCodeComponent implements OnInit {
       if(response["message"] == "OperationSuccess"){
         this.status = 1;
         this.message = "ورود موفق"
+        this.route.navigate(["/","profile"])
 
 
       }

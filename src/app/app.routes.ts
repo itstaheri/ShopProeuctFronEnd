@@ -3,6 +3,7 @@ import { AuthComponent } from './UserInterface/auth/auth.component';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './UserInterface/home/home.component';
 import { SendCodeComponent } from './UserInterface/send-code/send-code.component';
+import { ProfileComponent } from './UserInterface/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,10 @@ export const routes: Routes = [
       path: 'sendcode',
       component: SendCodeComponent,
   },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+}
 
 
 

@@ -3,7 +3,7 @@ import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Common } from '../app.component';
-import { OtpHeaderModel } from './models/otp/otpHeaderModel';
+import { OtpHeaderModel } from '../models/otp/otpHeaderModel';
 @Injectable({
     providedIn: 'root',
     
@@ -124,7 +124,7 @@ import { OtpHeaderModel } from './models/otp/otpHeaderModel';
         params : params
       };
 
-      return this.http.get<any[]>(Common.rootBaseUrl + customUrl, httpOptions);
+      return this.http.get<any>(Common.rootBaseUrl + customUrl, httpOptions);
 
     }
 

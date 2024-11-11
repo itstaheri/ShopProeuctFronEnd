@@ -53,10 +53,10 @@ export class AuthComponent implements OnInit {
     
     console.log(respons)
     debugger;
-    if(respons["result"].message == "ActiveOtpExist")
+    if(respons["message"] == "ActiveOtpExist")
       this.label = "یکبار رمز ارسال شده است."
-    else if(respons["result"].message == "OperationSuccess"){
-      this.route.navigate(['/','sendcode',{Id : request.Refrence}]);
+    else if(respons["message"] == "OperationSuccess"){
+      this.route.navigate(['/','sendcode',{Id : request.Refrence,channel : request.Channel}]);
 
   
     }

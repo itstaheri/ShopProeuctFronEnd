@@ -1,0 +1,8 @@
+<ngx-spinner *ngIf="isLoading | async"
+             bdColor = "rgba(0, 0, 0, 0.8)"
+             size = "medium"
+             color = "#6c82ff"
+             [type] = "typeSelected"
+             [fullScreen] = "true">
+    <p style="color: #6cff8c" >{{this.message}}</p>
+</ngx-spinner>

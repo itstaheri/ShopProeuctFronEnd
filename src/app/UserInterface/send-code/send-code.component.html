@@ -22,11 +22,15 @@
 
 
                                 <div class="otp">
-                                    <input  type="number" class="form-control otptext"  formControlName="Code">
+                                    <input ng-disabled="otpExpire" type="number" class="form-control otptext"  formControlName="Code">
 
                                 </div>
+                                <div class="timer">
+                                    <span><label>زمان باقی مانده : </label> {{ minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</span>
+                                </div>
                                <!--counter-->
-                                <button id="submit" type="submit" class="btn my-3 w-100 main-color-two-bg py-2">ورود</button>
+                                <button *ngIf="otpExpire == false" id="submit" type="submit" class="btn my-3 w-100 main-color-two-bg py-2">ورود</button>
+                                <a  *ngIf="otpExpire == true" id="submit" (click)="otpRequest()" class="btn my-3 w-100 main-color-two-bg py-2">درخواست مجدد</a>
                             </div>
                         </form>
                         </div>

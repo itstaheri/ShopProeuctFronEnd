@@ -4,8 +4,10 @@ import { Common, notificationType } from '../../app.component';
 import { ApiService } from '../../Services/api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { OtpHeaderModel } from '../../Services/models/otp/otpHeaderModel';
 import { CommonModule } from '@angular/common';
+import { OtpHeaderModel } from '../../models/otp/otpHeaderModel';
+import { ApiUrls } from '../../apiurls';
+import { interval, map, take } from 'rxjs';
 @Component({
   selector: 'app-send-code',
   standalone: true,
@@ -20,38 +22,46 @@ export class SendCodeComponent implements OnInit {
   /**
    *
    */
-  private readonly checkOtpIdValidUrl : string;
-  private readonly loginOrSignUpUrl : string;
-  public  message  : String;
+
+  public  message!  : String;
   public status : number =1;
   private timeout? : number 
   public form! : FormGroup
   private Id? : string;
-  
+  private channel = 1;
+  totalTime: number = 180;  
+  minutes: number = 0;
+  seconds: number = 0;
+
+  public otpExpire  : boolean = false;
   constructor(private activatedRoute : ActivatedRoute,private route:Router,private Apiservice:ApiService,private fb:FormBuilder) {
-    this.checkOtpIdValidUrl = Common.ReadConfig("CheckOtpIdIsValid")
-    this.loginOrSignUpUrl = Common.ReadConfig("CheckOtp")
 
                                    
                                    
-    this.message = " یک کد برای شما پیامک شد لطفا آن را وارد کنید"
     this.status = 1;
       
   }
   ngOnInit(): void {
-
     debugger
     this.form = this.fb.group({
       Id:['',Validators.required],
       Code : ['',Validators.required]
     })
    this.Id =  this.activatedRoute.snapshot.params["Id"]
+   this.channel =  this.activatedRoute.snapshot.params["channel"]
 
-    if(this.Id  == undefined){
+   debugger
+    if(this.Id  == undefined  || this.channel == undefined){
 
       debugger
       this.route.navigate(["/",'auth'])
     }
+
+    this.startTimer()
+    this.checkIdValid(this.Id);
+    this.message =  `کد یکبار رمز برای شماره : ${this.Id} ارسال شد.`
+
+
 
     // if(this.checkIdValid(Id)){
     //   Common.ShowNotify(notificationType.error,"شناسه یکبار رمز اشتباه می باشد.")
@@ -65,26 +75,89 @@ export class SendCodeComponent implements OnInit {
     
   }
 
-  // checkIdValid(Id : string) : boolean{
+  async startTimer() {
+    const countdown$ = interval(1000).pipe(
+      take(this.totalTime), 
+      map((elapsedTime) => this.totalTime - elapsedTime - 1)  
+    );
 
 
-  //   var requestBody = {
-  //     Id : Id
-  //   }
 
-  //   var result = false;
+    countdown$.subscribe({
+      next: (timeLeft) => this.updateTime(timeLeft),
+      complete: () =>{
+        this.message = "زمان شما برای وارد کردن یکبار رمز منقضی شد لطفا مجدد درخواست بدهید."
+        this.status = 2
+        this.disableOtp(this.Id) 
+      }
+    });
+  }
+  updateTime(timeLeft: number) {
+    this.minutes = Math.floor(timeLeft / 60);  
+    this.seconds = timeLeft % 60; 
+  }
 
-  //   this.Apiservice.CallPostApiWithoutToken(this.checkOtpIdValidUrl,requestBody).subscribe(response=>{
+  disableOtp(Id? : string){
+  
+
+    var req = {
+
+      Key : Id
+    }
+    this.Apiservice.CallPostApiWithoutToken(ApiUrls.DisableOtp,req).subscribe(response=>{
+      if(response.result == true){
+
+        this.otpExpire = true;
+
+      }
+    })
+  }
+
+  otpRequest(){
+    debugger;
+    var request = {
+      Refrence : this.Id,
+      Channel : this.channel
+
+    }
+    
+  this.Apiservice.CallPostApiWithCaptcha(ApiUrls.OtpRequest,request).subscribe(respons=>{
+
+
+         if(respons["message"] == "OperationSuccess"){
+
+           this.startTimer()
+           this.message =  `کد یکبار رمز برای شماره : ${this.Id} ارسال شد.`
+           this.status  = 1
+           this.otpExpire = false;
+         }
+
+        
+  })
+
+    
+  }
+
+
+  checkIdValid(Id? : string) {
+
+
+    var requestBody = {
+      Key : Id
+    }
+
+
+    this.Apiservice.CallGetApiWithoutToken(ApiUrls.OtpExist,requestBody).subscribe(response=>{
       
-  //     this.timeout = response[0].Result.Timeout
-  //     result = response[0].Result;
+      if(response.result == false)
+        this.route.navigate(["/",'auth'])
+
      
-  //   })
-
-  //   return result;
+    })
 
 
-  // }
+
+  }
 
   checkOtp(){
   debugger;
@@ -118,7 +191,7 @@ export class SendCodeComponent implements OnInit {
       }
       else if(response["message"] == "OTPExpierd"){
         this.status = 2;
-       this.message = "یکبار رمز غیر فعال شده است لطفا دوباره درخواست بدهید"
+       this.message = "یکبار رمز منقضی شده است لطفا دوباره درخواست بدهید"
      }
 
       

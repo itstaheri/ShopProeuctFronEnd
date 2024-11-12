@@ -30,7 +30,7 @@ export enum getRequestDataType{
   editMode,
   addMode
 }
-
+ 
 export enum formType{
   searchForm,
   browsingForm

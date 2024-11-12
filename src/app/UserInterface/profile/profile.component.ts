@@ -5,6 +5,9 @@ import { formType } from '../../app.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ApiUrls } from '../../apiurls';
+import { ProfileInfoModel } from '../../models/Profile/profileinfo.model';
+import { profile } from 'console';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +18,7 @@ import { RouterModule } from '@angular/router';
   providers : [ApiService]
 })
 export class ProfileComponent implements OnInit {
-  constructor(callApi : ApiService,private fb : FormBuilder){
+  constructor(private callApi : ApiService,private fb : FormBuilder){
 
     this.Section =  ProfileSection.Home;
   }
@@ -24,7 +27,7 @@ export class ProfileComponent implements OnInit {
  public ProfileForm! : FormGroup
 
  public Addresses : any
- public ProfileInfo : any
+ public ProfileInfo! : ProfileInfoModel
  public Orders : any
  public Notifications : any
  public Comments : any
@@ -33,6 +36,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.GetProfileInfo()
     debugger
   }
 
@@ -49,16 +53,29 @@ export class ProfileComponent implements OnInit {
     })
   }
   GetAddress(){
+    debugger
+    console.log(this.Addresses.length)
+    if(this.Addresses.length != 0)
+      return;
       
+    this.Section =  ProfileSection.Addresses;
+    this.MakeEmpty(); 
 
-    this.MakeEmpty();
+    this.callApi.CallGetApi(ApiUrls.Profile.GetAddress).subscribe(response=>{
+      this.Addresses = response.result;
+    })
   }
   GetComments(){
+    if(this.Comments.length != 0)
+      return;
     this.MakeEmpty();
 
-  }
+  } 
   GetOrders(){
-    debugger
+
+    if(this.Orders == null)
+      return;
+      
     this.Section =  ProfileSection.Orders; 
     this.MakeEmpty();
 
@@ -67,17 +84,26 @@ export class ProfileComponent implements OnInit {
     this.MakeEmpty();
 
   }
-  GetProfileInfo(){
+  GetProfileInfo(){ 
+
+
+    debugger
     this.Section = ProfileSection.Home
     this.MakeEmpty();
 
-  }
+    this.callApi.CallGetApi(ApiUrls.Profile.GetProfile).subscribe(response=>{
+      this.ProfileInfo = response.result;
+      this.ProfileInfo.phoneNumber = response.result.userInfo.phoneNumber
+      console.log(this.ProfileInfo)
+    })
+     
 
+  }
+ 
   MakeEmpty(){
     this.Addresses = []
     this.Comments = []
-    this.Notifications = []
-    this.ProfileInfo = null
+    this.Notifications = [] ;
     this.Orders = []
   }
 

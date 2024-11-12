@@ -10,10 +10,10 @@ bootstrapApplication(AppComponent, appConfig)
 
 export class Main{
 
-  public menu : any
-  public basket : any
+  public menu : any 
+  public basket : any; 
 
 
-  
+   
 
-}                   
+}                    

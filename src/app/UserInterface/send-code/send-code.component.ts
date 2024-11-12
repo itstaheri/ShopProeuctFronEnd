@@ -113,9 +113,9 @@ export class SendCodeComponent implements OnInit {
     })
   }
 
-  otpRequest(){
+  otpRequest(){ 
     debugger;
-    var request = {
+    var request = { 
       Refrence : this.Id,
       Channel : this.channel
 
@@ -163,9 +163,10 @@ export class SendCodeComponent implements OnInit {
   debugger;
     var otp =new  OtpHeaderModel();
 
-    var request = {
+    var request =  {
       PhoneNumber :  this.Id
     }
+
     otp.Refrence = this.Id;
     otp.Code = this.form.get("Code")?.value;
 
@@ -174,6 +175,7 @@ export class SendCodeComponent implements OnInit {
       debugger
       console.log(response)
       if(response["message"] == "OperationSuccess"){
+        localStorage.setItem("token",response.result.tokenID)
         this.status = 1;
         this.message = "ورود موفق"
         this.route.navigate(["/","profile"])

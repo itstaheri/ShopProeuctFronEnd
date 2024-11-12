@@ -24,14 +24,14 @@ import { OtpHeaderModel } from '../models/otp/otpHeaderModel';
 
     
     public  CallPostApi(customUrl: string, apiBody: any) {
-      let currentUser:any= JSON.parse(localStorage.getItem('currentUser') || '{}');
-      if (currentUser == null || currentUser.TokenID == null)
+      let token:any= localStorage.getItem('token');
+      if (token == null || token.TokenID == null)
         this.router.navigate(['/auth']);
       
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+ currentUser.TokenID          
+          'Authorization': token    
         })
       };
 
@@ -82,15 +82,15 @@ import { OtpHeaderModel } from '../models/otp/otpHeaderModel';
     }
 
     public  CallGetApi(customUrl: string , params?: any) {
-      let currentUser:any= JSON.parse(localStorage.getItem('currentUser') || '{}');
+      let token:any= localStorage.getItem('token');
 
-      if (currentUser == null || currentUser.TokenID == null)
+      if (token == null || token == null)
         this.router.navigate(['/auth']);
 
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+ currentUser.TokenID
+          'Authorization': token 
         }),
         params : params
       };

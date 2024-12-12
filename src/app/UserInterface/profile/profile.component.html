@@ -388,7 +388,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="slider-title-link">
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#createAddressModal" class="btn main-color-two-bg rounded-3"><i class="bi bi-pencil-square me-2"></i>اضافه
+                                            <a href="" data-bs-toggle="modal" (click)="OpenAddAddressModalEvent()" data-bs-target="#createAddressModal" class="btn main-color-two-bg rounded-3"><i class="bi bi-pencil-square me-2"></i>اضافه
                                                 کردن آدرس</a>
                                         </div>
                                     </div>
@@ -468,11 +468,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form [formGroup]="Addressform" (ngSubmit)="AddAddress()">
                     <div class="row g-4">
                         <div class="col-md-6">
                             <div class="comment-item">
-                                <input type="text" class="form-control" id="floatingInputName"
+                                <input formControlName="firstName" type="text" class="form-control" id="floatingInputName"
                                        placeholder="نام خود را وارد کنید...">
                                 <label for="floatingInputName" class="form-label label-float fw-bold font-16">نام
                                     <span class="text-danger">*</span></label>
@@ -480,7 +480,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="comment-item">
-                                <input type="text" class="form-control" id="floatingInputLName"
+                                <input type="text" formControlName="lastName" class="form-control" id="floatingInputLName"
                                        placeholder="نام خانوادگی خود را وارد کنید ...">
                                 <label for="floatingInputLName" class="form-label label-float fw-bold">نام خانوادگی
                                     <span class="text-danger">*</span></label>
@@ -488,8 +488,8 @@
                         </div>
                         <div class="col-12">
                             <div class="comment-item">
-                                <input type="text" class="form-control" id="floatingInputStreet"
-                                       placeholder="نام خانوادگی خود را وارد کنید ...">
+                                <input formControlName="description" type="text" class="form-control" id="floatingInputStreet"
+                                       placeholder="مثال : خیابان فرجی ، کوچه عبدالهی ، پلاک 12 واحد 1">
                                 <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس
                                     خیابان</label>
                             </div>
@@ -499,11 +499,8 @@
                                 <label for="floatingInputOstan" class="label-float fw-bold">استان <span
                                         class="text-danger">*</span></label>
 
-                                <select name="" id="floatingInputOstan" class="form-select">
-                                    <option value="">تهران</option>
-                                    <option value="">اصفهان</option>
-                                    <option value="">مشهد</option>
-                                    <option value="">شیراز</option>
+                                <select name="" id="floatingInputOstan" class="form-select" > 
+                                    <option *ngFor="let province of provinceList" (click)="GetCityList(province.id)" [value]="province.id">{{province.name}}</option>
                                 </select>
 
                             </div>
@@ -513,21 +510,34 @@
                                 <label class="label-float fw-bold" for="floatingInputCity">شهر <span
                                         class="text-danger">*</span></label>
 
-                                <select name="" id="floatingInputCity" class="form-select">
-                                    <option value="">کرج</option>
-                                    <option value="">خرم آباد</option>
-                                    <option value="">نور آباد</option>
-                                    <option value="">الشتر</option>
+                                <select name="" id="floatingInputCity" class="form-select" >
+                                    <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+
                                 </select>
 
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="comment-item">
-                                <input type="text" class="form-control" id="floatingInputTel"
+                                <input type="text" class="form-control" formControlName="reciverPhoneNumber" id="floatingInputTel"
                                        placeholder="شماره تلفن خود را وارد کنید ...">
                                 <label for="floatingInputTel" class="form-label label-float fw-bold">شماره
-                                    تلفن</label>
+                                    تلفن ثابت</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="comment-item">
+                                <input type="text" class="form-control" formControlName="reciverMobile"  id="floatingInputTel"
+                                       placeholder="شماره تلفن خود را وارد کنید ...">
+                                       <label class="label-float fw-bold" for="floatingInputCity">شماره تلفن همراه <span
+                                        class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="comment-item">
+                                <input type="text" class="form-control" formControlName="postalCode"  id="floatingInputTel"
+                                       placeholder="کدپستی خود را وارد کنید ...">
+                                <label for="floatingInputTel" class="form-label label-float fw-bold">کدپستی</label>
                             </div>
                         </div>
                         <div class="col-12">

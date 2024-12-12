@@ -7,7 +7,14 @@ export  class  ApiUrls{
    static OtpExist = "/v1/Otp/CheckOTPRequestExist"
    static Profile = {
       GetProfile : "/v1/Profile/GetProfileInformation",
-      GetAddress : "/v1/Profile/GetUserAddress"
+      GetAddress : "/v1/Profile/GetUserAddress",
+      AddAddress : "/v1/profile/AddAddress"
+
+   }
+   
+   static Lookup = {
+      GetCityList : "/v1/LookUp/GetCityLis",
+      GetProvinceList : "/v1/LookUp/GetProvinceList"
    }
 
 }  

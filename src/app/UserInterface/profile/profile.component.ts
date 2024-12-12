@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../Services/api.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { formType } from '../../app.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Common, formType, notificationType } from '../../app.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -22,6 +22,9 @@ export class ProfileComponent implements OnInit {
 
     this.Section =  ProfileSection.Home;
   }
+
+  public provinceList! : any
+  public cityList! : any
 
  public Addressform! : FormGroup
  public ProfileForm! : FormGroup
@@ -48,9 +51,34 @@ export class ProfileComponent implements OnInit {
   }
   InitializeAddressForm(){
     this.Addressform = this.fb.group({
-      
+
+      firstName : ['',Validators.required],
+      lastName : ['',Validators.required],
+      cityId : [1,Validators.required],
+      title : ['',Validators.required],
+      description : ['',Validators.required],
+      postalCode : ['',Validators.required],
+      reciverMobile : ['',Validators.required],
+      reciverPhoneNumber : [''] 
+
+
 
     })
+  }
+  GetProvinceList(){
+     this.callApi.CallGetApi(ApiUrls.Lookup.GetProvinceList).subscribe(response=>{
+      this.provinceList = response.result;
+      console.log(this.provinceList)
+     })
+  }
+  GetCityList(provinceId: Number){
+    console.log("--------------------------------")
+    var requestParam = {
+      provinceId : provinceId
+    }
+    this.callApi.CallGetApi(ApiUrls.Lookup.GetCityList,provinceId).subscribe(response=>{
+      this.cityList = response.result;
+     })
   }
   GetAddress(){
     debugger
@@ -99,6 +127,10 @@ export class ProfileComponent implements OnInit {
      
 
   }
+  OpenAddAddressModalEvent(){
+    this.InitializeAddressForm()
+    this.GetProvinceList();
+  }
  
   MakeEmpty(){
     this.Addresses = []
@@ -107,6 +139,15 @@ export class ProfileComponent implements OnInit {
     this.Orders = []
   }
 
+  AddAddress(){
+    var requestBody=  JSON.stringify(this.Addressform.value)
+    this.callApi.CallPostApi(ApiUrls.Profile.AddAddress,requestBody).subscribe(response=>{
+      if(response.message == "OperationSuccess"){
+        Common.ShowNotify(notificationType.success,"عملیات با موفقیت انجام شد.")
+      }
+    })
+
+  }
 
 }
 enum ProfileSection{

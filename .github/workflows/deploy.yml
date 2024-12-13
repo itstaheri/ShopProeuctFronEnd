@@ -26,7 +26,11 @@ jobs:
       run: |
         npm run build --prod
 
-     - name: Deploy on server
+    - name: Build Docker image
+      run: |
+        docker build -t shopfrontproduct:latest .
+
+    - name: Deploy on server
       uses: appleboy/ssh-action@v1.2.0
       with:
         host: ${{ secrets.SERVER_HOST }}
@@ -35,4 +39,4 @@ jobs:
         script: |
           docker stop shopfrontproduct || true
           docker rm shopfrontproduct || true
-          docker run -d --name shopfrontproduct -p 8080:80 agent2303/shopfrontproduct:latest
+          docker run -d --name shopfrontproduct -p 8080:80 shopfrontproduct:latest

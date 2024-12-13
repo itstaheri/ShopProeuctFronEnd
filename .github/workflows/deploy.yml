@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t shopfrontproduct:latest .
+        docker build -t shopfrontproduct:latest -f DOCKERFILE .
 
     - name: Deploy on server
       uses: appleboy/ssh-action@v1.2.0

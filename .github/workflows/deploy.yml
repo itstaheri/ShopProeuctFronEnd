@@ -39,4 +39,4 @@ jobs:
         script: |
           docker stop shopfrontproduct || true
           docker rm shopfrontproduct || true
-          docker run -d --name shopfrontproduct -p 8080:80 shopfrontproduct:latest
+          docker run -d --name shopfrontproduct -p 6985:6985 shopfrontproduct:latest

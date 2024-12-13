@@ -26,17 +26,28 @@ jobs:
       run: |
         npm run build --prod
 
-    - name: Build Docker image
+    - name: Archive Docker image
       run: |
-        docker build -t shopfrontproduct:latest -f DOCKERFILE .
+        docker build -t shopfrontproduct:latest -f DOCKERIMAGE .
+        docker save shopfrontproduct:latest -o shopfrontproduct.tar
 
-    - name: Deploy on server
+    - name: Transfer image to server
+      uses: appleboy/scp-action@v0.1.2
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        source: shopfrontproduct.tar
+        target: /home/${{ secrets.SERVER_USER }}/shopfrontproduct.tar
+
+    - name: Load and deploy image on server
       uses: appleboy/ssh-action@v1.2.0
       with:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
+          docker load -i /home/${{ secrets.SERVER_USER }}/shopfrontproduct.tar
           docker stop shopfrontproduct || true
           docker rm shopfrontproduct || true
-          docker run -d --name shopfrontproduct -p 6985:6985 shopfrontproduct:latest
+          docker run -d --name shopfrontproduct -p 8080:80 shopfrontproduct:latest

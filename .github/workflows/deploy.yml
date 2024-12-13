@@ -28,7 +28,7 @@ jobs:
 
     - name: Archive Docker image
       run: |
-        docker build -t shopfrontproduct:latest -f DOCKERIMAGE .
+        docker build -t shopfrontproduct:latest -f DOCKERFILE .
         docker save shopfrontproduct:latest -o shopfrontproduct.tar
 
     - name: Transfer image to server

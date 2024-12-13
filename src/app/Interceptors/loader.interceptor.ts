@@ -15,6 +15,7 @@ import { LoaderService } from '../Services/loader.service';
 export function loaderInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     const spinner = inject(LoaderService); 
     
+    console.log("loader run ...")
     spinner.show();  
   
     return next(req).pipe(

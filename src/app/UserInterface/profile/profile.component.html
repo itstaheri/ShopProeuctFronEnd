@@ -32,7 +32,7 @@
                                                                 class="bi bi-pencil-square"></i> </a></h6>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> 
                                             <div class="profile-box">
                                                 <nav class="navbar profile-box-nav">
                                                     <ul class="navbar-nav flex-column">
@@ -375,183 +375,11 @@
                             </div>
                         </div>
                     </section>
-                    <section class="address"  *ngIf="Section == 6">
-                        <div class="col-xl-9">
-                            <div class="slider-title mb-5">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="slider-title-desc">
-                                            <div class="slider-title-title">
-                                                <h2 class="h4">آدرس های <span class="main-color-one-color fw-bold">ثبت شده</span></h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="slider-title-link">
-                                            <a href="" data-bs-toggle="modal" (click)="OpenAddAddressModalEvent()" data-bs-target="#createAddressModal" class="btn main-color-two-bg rounded-3"><i class="bi bi-pencil-square me-2"></i>اضافه
-                                                کردن آدرس</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slider-parent rounded-0 border-ui content-box">
-                                <div class="container-fluid">
-                                    <div class="ui-box-item-desc bg-white">
-                                        <div class="orders">
-                                            <div class="order-item mb-4 border-bottom pb-3"  *ngFor="let add of Addresses">
-                                                <div class="order-item-status flex-nowrap">
-                                                    <div class="order-item-status-item">
-                                                        <p class="icon-circle">{{add.description}}
-                                                        </p>
-                                                    </div>
-                                                    <div class="order-item-status-item dropd-status">
-                                                        <div class="dropdown">
-                                                            <a class="" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="bi bi-three-dots-vertical text-dark fs-5"></i>
-                                                            </a>
-        
-                                                            <ul class="dropdown-menu flex-column" aria-labelledby="dropdownMenuLink-2" style="">
-                                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i>
-                                                                    ویرایش
-                                                                </a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="bi bi-trash text-danger"></i>
-                                                                    حذف </a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="order-item-detail border-0">
-                                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                                                        <div class="d-flex flex-column">
-                                                            <div class="text-muted d-flex align-items-center mb-2">
-                                                                <i class="bi bi-pin-map me-2"></i>
-                                                                <p>{{add.cityTitle}}</p>
-                                                            </div>
-                                                            <div class="text-muted d-flex align-items-center mb-2">
-                                                                <i class="bi bi-envelope me-2"></i>
-                                                                <p>6812345678</p>
-                                                            </div>
-                                                            <div class="text-muted d-flex align-items-center mb-2">
-                                                                <i class="bi bi-phone me-2"></i>
-                                                                <p>021123456789</p>
-                                                            </div>
-                                                            <div class="text-muted d-flex align-items-center mb-2">
-                                                                <i class="bi bi-person me-2"></i>
-                                                                <p>امیر رضایی</p>
-                                                            </div>
-                                                        </div>
-                                                        <img src="assets/image/map.jpg" alt="" class="img-thumbnail w-150-px h-150-px object-fit-cover" style="pointer-events: none;">
-                                                    </div>
-                                                </div>
-        
-                                            </div>
-                                       
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    <app-profile-address *ngIf="Section == 6"></app-profile-address>
+
+                  
                 </div>
             </div>
         </div>
     </div>
   
-<!--============ start create address modal ==============-->
-
-<div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5">ثبت آدرس</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="Addressform" (ngSubmit)="AddAddress()">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="comment-item">
-                                <input formControlName="firstName" type="text" class="form-control" id="floatingInputName"
-                                       placeholder="نام خود را وارد کنید...">
-                                <label for="floatingInputName" class="form-label label-float fw-bold font-16">نام
-                                    <span class="text-danger">*</span></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="comment-item">
-                                <input type="text" formControlName="lastName" class="form-control" id="floatingInputLName"
-                                       placeholder="نام خانوادگی خود را وارد کنید ...">
-                                <label for="floatingInputLName" class="form-label label-float fw-bold">نام خانوادگی
-                                    <span class="text-danger">*</span></label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="comment-item">
-                                <input formControlName="description" type="text" class="form-control" id="floatingInputStreet"
-                                       placeholder="مثال : خیابان فرجی ، کوچه عبدالهی ، پلاک 12 واحد 1">
-                                <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس
-                                    خیابان</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="comment-item">
-                                <label for="floatingInputOstan" class="label-float fw-bold">استان <span
-                                        class="text-danger">*</span></label>
-
-                                <select name="" id="floatingInputOstan" class="form-select" > 
-                                    <option *ngFor="let province of provinceList" (click)="GetCityList(province.id)" [value]="province.id">{{province.name}}</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="comment-item">
-                                <label class="label-float fw-bold" for="floatingInputCity">شهر <span
-                                        class="text-danger">*</span></label>
-
-                                <select name="" id="floatingInputCity" class="form-select" >
-                                    <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
-
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="comment-item">
-                                <input type="text" class="form-control" formControlName="reciverPhoneNumber" id="floatingInputTel"
-                                       placeholder="شماره تلفن خود را وارد کنید ...">
-                                <label for="floatingInputTel" class="form-label label-float fw-bold">شماره
-                                    تلفن ثابت</label>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="comment-item">
-                                <input type="text" class="form-control" formControlName="reciverMobile"  id="floatingInputTel"
-                                       placeholder="شماره تلفن خود را وارد کنید ...">
-                                       <label class="label-float fw-bold" for="floatingInputCity">شماره تلفن همراه <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="comment-item">
-                                <input type="text" class="form-control" formControlName="postalCode"  id="floatingInputTel"
-                                       placeholder="کدپستی خود را وارد کنید ...">
-                                <label for="floatingInputTel" class="form-label label-float fw-bold">کدپستی</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <button type="submit" class="btn main-color-one-bg border-0">
-                                    ثبت آدرس
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--============ end create address modal ==============-->

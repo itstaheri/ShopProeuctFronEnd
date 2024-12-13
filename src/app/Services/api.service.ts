@@ -24,8 +24,9 @@ import { OtpHeaderModel } from '../models/otp/otpHeaderModel';
 
     
     public  CallPostApi(customUrl: string, apiBody: any) {
+      debugger
       let token:any= localStorage.getItem('token');
-      if (token == null || token.TokenID == null)
+      if (token == null )
         this.router.navigate(['/auth']);
       
       const httpOptions = {

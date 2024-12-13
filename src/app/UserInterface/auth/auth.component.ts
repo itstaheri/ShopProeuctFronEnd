@@ -25,12 +25,10 @@ export class AuthComponent implements OnInit {
  private enableOtpPage : boolean = false
 
   //url
-  private readonly otpRequestUrl : string;
   
   constructor(private callApi : ApiService,private formBuilder : FormBuilder,private route:Router,){
     this._callApi = callApi;
     this._formBuilder = formBuilder;
-    this.otpRequestUrl = Common.ReadConfig("OtpRequest")
     
   }
   public form!: FormGroup;

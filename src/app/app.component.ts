@@ -1,19 +1,30 @@
 import { HttpClient, HttpHandler, HttpXhrBackend } from '@angular/common/http';
-import { Component, ElementRef, Injector } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { LoaderComponent } from './modules/loader/loader.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CustomPopupComponent } from './modules/popup/popup.component';
+import { PopupService } from './Services/popup.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,LoaderComponent,NgxSpinnerModule],
+  imports: [RouterOutlet,LoaderComponent,NgxSpinnerModule,CustomPopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild(CustomPopupComponent) popupComponent!: CustomPopupComponent;
+
+  constructor(private popupService: PopupService){
+
+  }
+  ngAfterViewInit(): void {
+    this.popupService.register(this.popupComponent);
+  }
   title = 'ShopProduct';
   static rootBaseUrl: string = "https://localhost:7191/api";
   static Toastr:ToastrService;
@@ -38,40 +49,12 @@ export enum formType{
 
 export class Common {
 
-  private    _http : HttpClient
 
-  constructor(private elementRef: ElementRef,private http: HttpClient) {
-    let apiUrl = this.elementRef.nativeElement.getAttribute('apiUrl');
-    if (apiUrl != undefined && apiUrl != null)
-      Common.rootBaseUrl = apiUrl;
-     this._http = http;
-  }
+
   public static rootBaseUrl: string = AppComponent.rootBaseUrl;
   public static defaultLang: string;
-  private static jsonUrl = 'D:\Projects\ShopProductFront\ShopProduct\src\assets\config.json';
 
-  private static getJsonData(): Observable<any> {
-   const injector = Injector.create({
-      providers: [
-          { provide: HttpClient, deps: [HttpHandler] },
-          { provide: HttpHandler, useValue: new HttpXhrBackend({ build: () => new XMLHttpRequest }) },
-      ],
-  });
-    const httpClient: HttpClient = injector.get(HttpClient);
-
-    return httpClient.get(this.jsonUrl);
-
-  }
-
-  public static ReadConfig(key : string) : any{
-
-    debugger;
-    this.getJsonData().subscribe(data=>{
-      return data[key]
-    });
-  }
-
-
+ 
  
 
 

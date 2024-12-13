@@ -1,0 +1,178 @@
+
+<section class="address" >
+    <div class="col-xl-9">
+        <div class="slider-title mb-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="slider-title-desc">
+                        <div class="slider-title-title">
+                            <h2 class="h4">آدرس های <span class="main-color-one-color fw-bold">ثبت شده</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="slider-title-link">
+                        <a  id="addAddressButton" (click)="OpenAddAddressModalEvent(createAddressModal)" class="btn main-color-two-bg rounded-3"><i class="bi bi-pencil-square me-2"></i>اضافه
+                            کردن آدرس</a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="slider-parent rounded-0 border-ui content-box">
+            <div class="container-fluid">
+                <div class="ui-box-item-desc bg-white">
+                    <div class="orders">
+                        <div class="order-item mb-4 border-bottom pb-3"  *ngFor="let add of Addresses">
+                            <div class="order-item-status flex-nowrap">
+                                <div class="order-item-status-item">
+                                    <p class="icon-circle">{{add.title}}
+                                    </p>
+                                </div>
+                                <div class="order-item-status-item dropd-status">
+                                    <div class="dropdown">
+                                        <a class="" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical text-dark fs-5"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu flex-column" aria-labelledby="dropdownMenuLink-2" style="">
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i>
+                                                ویرایش
+                                            </a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-trash text-danger"></i>
+                                                حذف </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-item-detail border-0">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                    <div class="d-flex flex-column">
+                                        <div class="text-muted d-flex align-items-center mb-2">
+                                            <i class="bi bi-pin-map me-2"></i>
+                                            <p>{{add.cityTitle}}</p>
+                                        </div>
+                                        
+                                        <div class="text-muted d-flex align-items-center mb-2">
+                                            <i class="bi bi-phone me-2"></i>
+                                            <p>{{add.mobile}}</p>
+                                        </div>
+                                        <div class="text-muted d-flex align-items-center mb-2">
+                                            <i class="bi bi-person me-2"></i>
+                                            <p>{{add.firstName}} {{add.lastName}}</p>
+                                        </div>
+                                    </div>
+                                    <img src="assets/image/map.jpg" alt="" class="img-thumbnail w-150-px h-150-px object-fit-cover" style="pointer-events: none;">
+                                </div>
+                            </div>
+
+                        </div>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--============ start create address modal ==============-->
+<ng-template #createAddressModal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5">ثبت آدرس</h1>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="Addressform" (ngSubmit)="AddAddress()">
+                <div class="row g-4">
+                    <div class="col-md-12">
+                        <div class="comment-item">
+                            <input  type="text"  class="form-control" formControlName="title" id="floatingInputName"
+                                   placeholder="عنوان آدرس">
+                            <label for="floatingInputName" class="form-label label-float fw-bold font-16">عنوان
+                                <span class="text-danger">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comment-item">
+                            <input  type="text"  class="form-control" formControlName="firstName" id="floatingInputName"
+                                   placeholder="نام خود را وارد کنید...">
+                            <label for="floatingInputName" class="form-label label-float fw-bold font-16">نام
+                                <span class="text-danger">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comment-item">
+                            <input type="text"  class="form-control" formControlName="lastName" id="floatingInputLName"
+                                   placeholder="نام خانوادگی خود را وارد کنید ...">
+                            <label for="floatingInputLName" class="form-label label-float fw-bold">نام خانوادگی
+                                <span class="text-danger">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="comment-item">
+                            <input  type="text" class="form-control" formControlName="description" id="floatingInputStreet"
+                                   placeholder="مثال : خیابان فرجی ، کوچه عبدالهی ، پلاک 12 واحد 1">
+                            <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس
+                                خیابان</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comment-item">
+                            <label for="floatingInputOstan" class="label-float fw-bold">استان <span
+                                    class="text-danger">*</span></label>
+
+                            <select name="" id="floatingInputOstan" class="form-select" > 
+                                <option *ngFor="let province of provinceList" (click)="GetCityList(province.id)" [value]="province.id">{{province.name}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="comment-item">
+                            <label class="label-float fw-bold" for="floatingInputCity">شهر <span
+                                    class="text-danger">*</span></label>
+
+                            <select name="" id="floatingInputCity" class="form-select" >
+                                <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="comment-item">
+                            <input type="text" class="form-control" formControlName="reciverPhoneNumber" id="floatingInputTel"
+                                   placeholder="شماره تلفن خود را وارد کنید ...">
+                            <label for="floatingInputTel" class="form-label label-float fw-bold">شماره
+                                تلفن ثابت</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="comment-item">
+                            <input type="text" class="form-control" formControlName="reciverMobile"  id="floatingInputTel"
+                                   placeholder="شماره تلفن خود را وارد کنید ...">
+                                   <label class="label-float fw-bold" for="floatingInputCity">شماره تلفن همراه <span
+                                    class="text-danger">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="comment-item">
+                            <input type="text" class="form-control" formControlName="postalCode"  id="floatingInputTel"
+                                   placeholder="کدپستی خود را وارد کنید ...">
+                            <label for="floatingInputTel" class="form-label label-float fw-bold">کدپستی</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn main-color-one-bg border-0" >
+                                ثبت آدرس
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<app-custom-popup></app-custom-popup>
+
+<!--============ end create address modal ==============-->

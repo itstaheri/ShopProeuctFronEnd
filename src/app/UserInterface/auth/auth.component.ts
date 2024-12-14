@@ -47,7 +47,7 @@ export class AuthComponent implements OnInit {
 
     }
     
-  this.callApi.CallPostApiWithCaptcha(ApiUrls.OtpRequest,request).subscribe(respons=>{
+  this.callApi.CallPostApiWithoutToken(ApiUrls.OtpRequest,request).subscribe(respons=>{
     
     console.log(respons)
     debugger;

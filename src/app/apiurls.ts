@@ -13,7 +13,7 @@ export  class  ApiUrls{
    }
    
    static Lookup = {
-      GetCityList : "/v1/LookUp/GetCityLis",
+      GetCityList : "/v1/LookUp/GetCityList",
       GetProvinceList : "/v1/LookUp/GetProvinceList"
    }
 

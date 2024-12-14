@@ -120,8 +120,8 @@
                             <label for="floatingInputOstan" class="label-float fw-bold">استان <span
                                     class="text-danger">*</span></label>
 
-                            <select name="" id="floatingInputOstan" class="form-select" > 
-                                <option *ngFor="let province of provinceList" (click)="GetCityList(province.id)" [value]="province.id">{{province.name}}</option>
+                            <select name="" id="floatingInputOstan" class="form-select" (click)="GetCityList($event)"> 
+                                <option *ngFor="let province of provinceList"  [value]="province.id">{{province.name}}</option>
                             </select>
 
                         </div>
@@ -131,8 +131,8 @@
                             <label class="label-float fw-bold" for="floatingInputCity">شهر <span
                                     class="text-danger">*</span></label>
 
-                            <select name="" id="floatingInputCity" class="form-select" >
-                                <option *ngFor="let city of cityList" [value]="city.id">{{city.name}}</option>
+                            <select name="" id="floatingInputCity" class="form-select" formControlName="cityId">
+                                <option *ngFor="let city of cityList" [value]="city.id" >{{city.name}}</option>
 
                             </select>
 
@@ -161,6 +161,9 @@
                             <label for="floatingInputTel" class="form-label label-float fw-bold">کدپستی</label>
                         </div>
                     </div>
+                    <div class="col-6">
+                       
+                    </div>
                     <div class="col-12">
                         <div class="form-group">
                             <button type="submit" class="btn main-color-one-bg border-0" >
@@ -173,6 +176,34 @@
         </div>
     </div>
 </ng-template>
+
 <app-custom-popup></app-custom-popup>
 
 <!--============ end create address modal ==============-->
+<div class="comment-item">
+    <a   (click)="openMap(mapModal)" class="button">انتخاب از روی نقشه</a>
+ </div>
+
+<!--============ start map modal ==============-->
+<ng-template #mapModal let-modal>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5">انتخاب آدرس از روی نقشه</h1>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <google-map
+            height="400px"
+            width="100%"
+            [center]="center"
+            [zoom]="15"
+            (mapClick)="onMapClick($event)">
+          </google-map>
+          <p>Selected Location: {{ selectedLocation.lat }}, {{ selectedLocation.lng }}</p>
+        </div>
+    </div>
+</ng-template>
+    
+ 
+<!--============ end map modal ==============-->

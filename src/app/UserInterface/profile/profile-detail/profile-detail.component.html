@@ -1,0 +1,205 @@
+
+
+<div class="content-box px-2 slider-parent">
+    <div class="container-fluid">
+        <div class="panel-mini-card">
+            <div class="row gy-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="panel-two-full-info-item w-100">
+                        <div class="content d-flex align-items-center flex-column flex-md-row">
+                            <div class="icon-card me-3">
+                                <i class="bi bi-credit-card"></i>
+                            </div>
+                            <div class="detail text-center text-md-start">
+                                <div class="title mb-2 text-muted"> در حال انجام</div>
+                                <div class="value fw-bold h5"> 0 سفارش</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="panel-two-full-info-item w-100">
+                        <div class="content d-flex align-items-center flex-column flex-md-row">
+                            <div class="icon-card me-3">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <div class="detail text-center text-md-start">
+                                <div class="title mb-2 text-muted"> تکمیل شده</div>
+                                <div class="value fw-bold h5"> 17 سفارش</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="panel-two-full-info-item w-100">
+                        <div class="content d-flex align-items-center flex-column flex-md-row">
+                            <div class="icon-card me-3">
+                                <i class="bi bi-box-seam"></i>
+                            </div>
+                            <div class="detail text-center text-md-start">
+                                <div class="title mb-2 text-muted"> مرجوع شده</div>
+                                <div class="value fw-bold h5"> 0 سفارش</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="panel-two-full-info-item w-100">
+                        <div class="content d-flex align-items-center flex-column flex-md-row">
+                            <div class="icon-card me-3">
+                                <i class="bi bi-cart-x"></i>
+                            </div>
+                            <div class="detail text-center text-md-start">
+                                <div class="title mb-2 text-muted"> لغو شده</div>
+                                <div class="value fw-bold h5"> 0 سفارش</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-12">
+
+    <div class="slider-title mb-5">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="slider-title-desc">
+                    <div class="slider-title-title">
+                        <h2 class="h4">ویرایش <span class="main-color-one-color fw-bold">پروفایل</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="slider-title-link">
+                    <a (click)="openEditProfileModal(editprofilemodal)" data-bs-toggle="modal" data-bs-target="#editModal" class="btn main-color-two-bg rounded-3"><i class="bi bi-pencil-square"></i>
+                        ویرایش</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="table-custom slider-parent mt-5 p-0">
+        <div class="table-responsive-lg">
+            <table class="table shadow-none table-bordered">
+                <tbody>
+                <tr>
+                    <td colspan="2">
+                        <h6 class="fw-bold font-18  text-muted ">نام و نام خانوادگی:</h6>
+                        <p class=" mt-2 font-16">امیر رضایی</p>
+                    </td>
+                    <td colspan="2">
+                        <h6 class="text-muted fw-bold font-18 ">شماره تلفن:</h6>
+                        <p class=" mt-2 font-16">09165555555</p>
+                    </td>
+                    <td colspan="2">
+                        <h6 class="fw-bold font-18 text-muted">پست الکترونیک:</h6>
+                        <p class=" mt-2 font-16">Amirgmail.com</p>
+                    </td>
+                    <td colspan="2" class="no-border">
+                        <h6 class="fw-bold font-18 text-muted">کد ملی:</h6>
+                        <p class=" mt-2 font-16">61400011133322</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" class="no-border">
+                        <h6 class="fw-bold font-18  text-muted">آدرس: </h6>
+                        <p class=" mt-2 font-16">خرم آباد شهریار انتهای کوچه</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--============ start edit profile modal ==============-->
+
+<ng-template #editprofilemodal>
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">ویرایش پروفایل</h1>
+                <button type="button"  class="btn-close" (click)="closeEditProfileModal(editprofilemodal)" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="comment-item">
+                                <input type="text" class="form-control" id="floatingInputName"
+                                       placeholder="نام خود را وارد کنید...">
+                                <label for="floatingInputName" class="form-label label-float fw-bold font-16">نام
+                                    <span class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="comment-item">
+                                <input type="text" class="form-control" id="floatingInputLName"
+                                       placeholder="نام خانوادگی خود را وارد کنید ...">
+                                <label for="floatingInputLName" class="form-label label-float fw-bold">نام خانوادگی
+                                    <span class="text-danger">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="comment-item">
+                                <input type="text" class="form-control" id="floatingInputStreet"
+                                       placeholder="نام خانوادگی خود را وارد کنید ...">
+                                <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس
+                                    خیابان</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="comment-item">
+                                <label for="floatingInputOstan" class="label-float fw-bold">استان <span
+                                        class="text-danger">*</span></label>
+
+                                <select name="" id="floatingInputOstan" class="form-select">
+                                    <option value="">تهران</option>
+                                    <option value="">اصفهان</option>
+                                    <option value="">مشهد</option>
+                                    <option value="">شیراز</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="comment-item">
+                                <label class="label-float fw-bold" for="floatingInputCity">شهر <span
+                                        class="text-danger">*</span></label>
+
+                                <select name="" id="floatingInputCity" class="form-select">
+                                    <option value="">کرج</option>
+                                    <option value="">خرم آباد</option>
+                                    <option value="">نور آباد</option>
+                                    <option value="">الشتر</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="comment-item">
+                                <input type="text" class="form-control" id="floatingInputTel"
+                                       placeholder="شماره تلفن خود را وارد کنید ...">
+                                <label for="floatingInputTel" class="form-label label-float fw-bold">شماره
+                                    تلفن</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn main-color-one-bg border-0">
+                                    ویرایش پروفایل
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!--============ end edit profile modal ==============-->

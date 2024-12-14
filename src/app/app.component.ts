@@ -26,7 +26,8 @@ export class AppComponent implements AfterViewInit {
     this.popupService.register(this.popupComponent);
   }
   title = 'ShopProduct';
-  static rootBaseUrl: string = "https://localhost:7191/api";
+  // static rootBaseUrl: string = "https://localhost:7191/api";
+  static rootBaseUrl: string = "http://195.88.208.146:8080/api";
   static Toastr:ToastrService;
 
 }

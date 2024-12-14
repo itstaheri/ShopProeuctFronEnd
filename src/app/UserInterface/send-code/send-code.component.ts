@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { OtpHeaderModel } from '../../models/otp/otpHeaderModel';
 import { ApiUrls } from '../../apiurls';
 import { interval, map, take } from 'rxjs';
+import { Token } from '../../models/token.model';
+import { AuthService } from '../../Services/auth.service';
 @Component({
   selector: 'app-send-code',
   standalone: true,
@@ -34,7 +36,7 @@ export class SendCodeComponent implements OnInit {
   seconds: number = 0;
 
   public otpExpire  : boolean = false;
-  constructor(private activatedRoute : ActivatedRoute,private route:Router,private Apiservice:ApiService,private fb:FormBuilder) {
+  constructor(private activatedRoute : ActivatedRoute,private route:Router,private Apiservice:ApiService,private fb:FormBuilder,private authService : AuthService) {
 
                                    
                                    
@@ -121,7 +123,7 @@ export class SendCodeComponent implements OnInit {
 
     }
     
-  this.Apiservice.CallPostApiWithCaptcha(ApiUrls.OtpRequest,request).subscribe(respons=>{
+  this.Apiservice.CallPostApiWithoutToken(ApiUrls.OtpRequest,request).subscribe(respons=>{
 
 
          if(respons["message"] == "OperationSuccess"){
@@ -175,7 +177,9 @@ export class SendCodeComponent implements OnInit {
       debugger
       console.log(response)
       if(response["message"] == "OperationSuccess"){
-        localStorage.setItem("token",response.result.tokenID)
+        debugger
+
+        this.authService.login(response.result.tokenID)
         this.status = 1;
         this.message = "ورود موفق"
         this.route.navigate(["/","profile"])

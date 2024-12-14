@@ -10,11 +10,12 @@ import { ProfileInfoModel } from '../../models/Profile/profileinfo.model';
 import { profile } from 'console';
 import { ProfileAddressComponent } from './profile-address/profile-address.component';
 import { CustomPopupComponent } from '../../modules/popup/popup.component';
+import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
  
 @Component({ 
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterModule,HttpClientModule,CommonModule,ProfileAddressComponent],
+  imports: [ReactiveFormsModule,RouterModule,HttpClientModule,CommonModule,ProfileAddressComponent,ProfileDetailComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   providers : [ApiService]
@@ -34,7 +35,7 @@ export class ProfileComponent implements OnInit,AfterViewInit  {
 
  public ProfileForm! : FormGroup
 
- public ProfileInfo! : ProfileInfoModel
+ public ProfileInfo : ProfileInfoModel = new ProfileInfoModel()
  public Orders : any
  public Notifications : any
  public Comments : any

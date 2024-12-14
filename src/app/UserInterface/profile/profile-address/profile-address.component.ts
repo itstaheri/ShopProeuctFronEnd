@@ -9,11 +9,12 @@ import { Common, notificationType } from '../../../app.component';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PopupService } from '../../../Services/popup.service';
 import { CustomPopupComponent } from '../../../modules/popup/popup.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-profile-address',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterModule,HttpClientModule,CommonModule,NgbModule,CustomPopupComponent ],
+  imports: [ReactiveFormsModule,RouterModule,HttpClientModule,CommonModule,NgbModule,CustomPopupComponent,GoogleMapsModule],
   templateUrl: './profile-address.component.html',
   styleUrl: './profile-address.component.scss',
   providers : [ApiService,PopupService]
@@ -24,7 +25,9 @@ export class ProfileAddressComponent implements OnInit,AfterViewChecked    {
   public cityList! : any
   public Addresses : any
   @ViewChild(CustomPopupComponent) popupComponent!: CustomPopupComponent;
+  selectedLocation!: { lat: number; lng: number; };
 
+  center: google.maps.LatLngLiteral = { lat: 35.6892, lng: 51.3890 }; // Tehran 
 
   constructor(private callApi : ApiService,private fb : FormBuilder,private modalService: NgbModal,private popup :PopupService){
   } 
@@ -49,7 +52,7 @@ export class ProfileAddressComponent implements OnInit,AfterViewChecked    {
 
       firstName : [null,Validators.required],
       lastName : [null,Validators.required],
-      cityId : [1,Validators.required],
+      cityId : [null,Validators.required],
       title : [null,Validators.required],
       description : [null,Validators.required],
       postalCode : [null,Validators.required],
@@ -75,17 +78,30 @@ export class ProfileAddressComponent implements OnInit,AfterViewChecked    {
       this.callApi.CallGetApi(ApiUrls.Lookup.GetProvinceList).subscribe(response=>{
        this.provinceList = response.result;
        console.log(this.provinceList)
-      })
+      }) 
    }
-   GetCityList(provinceId: Number){
-     console.log("--------------------------------")
+   GetCityList($event : Event){
+    let ev = $event.target as HTMLSelectElement
      var requestParam = {
-       provinceId : provinceId
+       provinceId : ev.value
      }
-     this.callApi.CallGetApi(ApiUrls.Lookup.GetCityList,provinceId).subscribe(response=>{
+     this.callApi.CallGetApi(ApiUrls.Lookup.GetCityList,requestParam).subscribe(response=>{
        this.cityList = response.result;
       })
    }
+   openMap(content : any){
+    debugger
+    this.modalService.open(content)
+   }
+
+   onMapClick(event: google.maps.MapMouseEvent) {
+    if (event.latLng) {
+      this.selectedLocation = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+    }
+  }
     
   GetAddress(){
     debugger

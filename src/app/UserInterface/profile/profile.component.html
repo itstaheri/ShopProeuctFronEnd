@@ -26,8 +26,8 @@
                                                     <img src="assets/image/user.png"
                                                          class="img-fluid img-profile-panel rounded-circle me-3 shadow-md" alt="">
                                                     <div class="d-grid gap-2">
-                                                        <h6 class="h6 main-color-one-color">{{ProfileInfo.firstName}}</h6>
-                                                        <h6 class="font-14 text-muted">{{ProfileInfo.phoneNumber}} <a href=""
+                                                        <h6 class="h6 main-color-one-color">{{ProfileInfo?.firstName}}</h6>
+                                                        <h6 class="font-14 text-muted">{{ProfileInfo?.phoneNumber}} <a href=""
                                                                                                        class="ms-2 text-muted"><i
                                                                 class="bi bi-pencil-square"></i> </a></h6>
                                                     </div>
@@ -128,117 +128,9 @@
                     </div>
                 </div>
                 <div class="col-xl-9">
-                    <div class="content-box px-2 slider-parent" *ngIf="Section == 1">
-                        <div class="container-fluid">
-                            <div class="panel-mini-card">
-                                <div class="row gy-4">
-                                    <div class="col-xl-3 col-md-6">
-                                        <div class="panel-two-full-info-item w-100">
-                                            <div class="content d-flex align-items-center flex-column flex-md-row">
-                                                <div class="icon-card me-3">
-                                                    <i class="bi bi-credit-card"></i>
-                                                </div>
-                                                <div class="detail text-center text-md-start">
-                                                    <div class="title mb-2 text-muted"> در حال انجام</div>
-                                                    <div class="value fw-bold h5"> 0 سفارش</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6">
-                                        <div class="panel-two-full-info-item w-100">
-                                            <div class="content d-flex align-items-center flex-column flex-md-row">
-                                                <div class="icon-card me-3">
-                                                    <i class="bi bi-truck"></i>
-                                                </div>
-                                                <div class="detail text-center text-md-start">
-                                                    <div class="title mb-2 text-muted"> تکمیل شده</div>
-                                                    <div class="value fw-bold h5"> 17 سفارش</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6">
-                                        <div class="panel-two-full-info-item w-100">
-                                            <div class="content d-flex align-items-center flex-column flex-md-row">
-                                                <div class="icon-card me-3">
-                                                    <i class="bi bi-box-seam"></i>
-                                                </div>
-                                                <div class="detail text-center text-md-start">
-                                                    <div class="title mb-2 text-muted"> مرجوع شده</div>
-                                                    <div class="value fw-bold h5"> 0 سفارش</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6">
-                                        <div class="panel-two-full-info-item w-100">
-                                            <div class="content d-flex align-items-center flex-column flex-md-row">
-                                                <div class="icon-card me-3">
-                                                    <i class="bi bi-cart-x"></i>
-                                                </div>
-                                                <div class="detail text-center text-md-start">
-                                                    <div class="title mb-2 text-muted"> لغو شده</div>
-                                                    <div class="value fw-bold h5"> 0 سفارش</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <section class="user-info-tbl" *ngIf="Section == 1">
-                        <div class="slider-title mb-5">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <div class="slider-title-desc">
-                                        <div class="slider-title-title">
-                                            <h2 class="h4">پروفایل <span
-                                                    class="main-color-one-color fw-bold">کاربری</span></h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="slider-title-link">
-                                        <a href="" class="main-color-one-color font-16"> ویرایش <i
-                                                class="bi bi-caret-left-fill"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-custom slider-parent p-0">
-                            <div class="table-responsive-lg">
-                                <table class="table shadow-none table-bordered">
-                                    <tbody>
-                                    <tr>
-                                        <td colspan="2">
-                                            <h6 class="fw-bold font-18  text-muted ">نام و نام خانوادگی:</h6>
-                                            <p class=" mt-2 font-16">امیر رضایی</p>
-                                        </td>
-                                        <td colspan="2">
-                                            <h6 class="text-muted fw-bold font-18 ">شماره تلفن:</h6>
-                                            <p class=" mt-2 font-16">09165555555</p>
-                                        </td>
-                                        <td colspan="2">
-                                            <h6 class="fw-bold font-18 text-muted">پست الکترونیک:</h6>
-                                            <p class=" mt-2 font-16">Amirgmail.com</p>
-                                        </td>
-                                        <td colspan="2" class="no-border">
-                                            <h6 class="fw-bold font-18 text-muted">کد ملی:</h6>
-                                            <p class=" mt-2 font-16">61400011133322</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="8" class="no-border">
-                                            <h6 class="fw-bold font-18  text-muted">آدرس: </h6>
-                                            <p class=" mt-2 font-16">خرم آباد شهریار انتهای کوچه</p>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                       <app-profile-detail></app-profile-detail>
                     </section>
                     <section class="order-info"  *ngIf="Section == 2">
                         <div class="slider-title mb-5">

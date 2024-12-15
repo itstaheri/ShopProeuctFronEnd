@@ -11,7 +11,7 @@ import { loggingInterceptorFunctional } from './Interceptors/logging.interceptor
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
-      withInterceptors([loggingInterceptorFunctional,loaderInterceptor, httpInterceptor]) 
+      withInterceptors([loggingInterceptorFunctional,loaderInterceptor]) 
     ),
     provideRouter(routes),
     provideClientHydration()

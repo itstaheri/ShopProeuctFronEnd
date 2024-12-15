@@ -22,7 +22,7 @@ import { ProfileDetailComponent } from './profile-detail/profile-detail.componen
 })
 export class ProfileComponent implements OnInit,AfterViewInit  {
   @ViewChild(CustomPopupComponent) popupComponent!: CustomPopupComponent;
-
+ 
   constructor(private callApi : ApiService,private fb : FormBuilder){
 
     this.Section =  ProfileSection.Home;
@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit,AfterViewInit  {
 
     this.callApi.CallGetApi(ApiUrls.Profile.GetProfile).subscribe(response=>{
       this.ProfileInfo = response.result;
-      this.ProfileInfo.phoneNumber = response.result.userInfo.phoneNumber
+      this.ProfileInfo.phoneNumber = response.result.phoneNumber
       console.log(this.ProfileInfo)
     })
      

@@ -20,23 +20,22 @@ import { GoogleMapsModule } from '@angular/google-maps';
   providers : [ApiService,PopupService]
 
 })
-export class ProfileAddressComponent implements OnInit,AfterViewChecked    {
+export class ProfileAddressComponent implements OnInit,AfterViewInit    {
   public provinceList! : any
   public cityList! : any
   public Addresses : any
   @ViewChild(CustomPopupComponent) popupComponent!: CustomPopupComponent;
-  selectedLocation!: { lat: number; lng: number; };
+  selectedLocation!: { lat: number; lng: number; }; 
 
   center: google.maps.LatLngLiteral = { lat: 35.6892, lng: 51.3890 }; // Tehran 
 
   constructor(private callApi : ApiService,private fb : FormBuilder,private modalService: NgbModal,private popup :PopupService){
   } 
-  ngAfterViewChecked(): void {
-    debugger
+  ngAfterViewInit(): void {
     this.popup.register(this.popupComponent)
-
-
+ 
   }
+
 
   ngOnInit(): void {
     this.InitializeAddressForm();

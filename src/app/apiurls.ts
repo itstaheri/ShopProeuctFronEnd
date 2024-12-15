@@ -17,4 +17,8 @@ export  class  ApiUrls{
       GetProvinceList : "/v1/LookUp/GetProvinceList"
    }
 
+   static Category = {
+      GetMainCategoryList : "/v1/category/GetMainCategoryList"
+   }
+
 }  

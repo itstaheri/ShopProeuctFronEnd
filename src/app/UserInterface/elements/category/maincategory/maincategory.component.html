@@ -1,0 +1,26 @@
+<section class="site-category py-20">
+    <div class="container-fluid">
+        <div class="section-title">
+            <h3 class="fw-bold text-center"><span class="main-color-one-color">دسته بندی</span> محصولات</h3>
+            <img src="assets/image/category/line.png" class="line-image" alt="">
+        </div>
+
+        <div class="site-categories">
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-lg-2 col-sm-6" *ngFor="let category of categoryList">
+                    <div class="site-category-items p-3 shadow-box rounded-3">
+                        <a href="">
+                            <div class="site-category-items-icon">
+                                <img src="data:image/png;base64,{{category.picture}}" alt="">
+                            </div>
+                            <h6 class="text-center">{{category.name}}</h6>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

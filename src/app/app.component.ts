@@ -8,11 +8,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CustomPopupComponent } from './modules/popup/popup.component';
 import { PopupService } from './Services/popup.service';
 import { CommonModule } from '@angular/common';
+import { AccountButtonComponent } from './UserInterface/elements/account-button/account-button.component';
+import { HeaderComponent } from './UserInterface/header/header.component';
+import { FooterComponent } from './UserInterface/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,LoaderComponent,NgxSpinnerModule,CustomPopupComponent],
+  imports: [RouterOutlet,LoaderComponent,NgxSpinnerModule,CustomPopupComponent,AccountButtonComponent,HeaderComponent,FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

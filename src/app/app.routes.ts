@@ -7,6 +7,13 @@ import { ProfileComponent } from './UserInterface/profile/profile.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
+  {
+
+    path : '',
+    component : HomeComponent,
+
+  },
+ 
     {
         path: 'home',
         component: HomeComponent,
@@ -24,7 +31,13 @@ export const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate : [authGuard]
-}
+},
+{
+
+  path : '**',
+  component : HomeComponent,
+
+},
 
 
 

@@ -141,10 +141,8 @@ debugger
         
       }
 
-      console.log("------------------")
       return this.http.post<any>(Common.rootBaseUrl + customUrl,apiBody,{observe:'response',...httpOptions}).pipe(map((response : HttpResponse<any>)=>{
 
-        console.log("status------------",response.status)
         this.checkStatus(response.status)
         return response.body;
       }));   
